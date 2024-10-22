@@ -12,7 +12,8 @@ export const authConfig = {
         if (isLoggedIn) return true;
         return false; 
       } else if (isLoggedIn) {
-        return Response.redirect(new URL('/dashboard', nextUrl));
+        const baseUrl = process.env.NEXTAUTH_URL || 'https://next-js-training-prod.vercel.app'; 
+        return Response.redirect(new URL('/dashboard', baseUrl));
       }
       return true;
     },

@@ -14,9 +14,7 @@ export const authConfig = {
         if (isLoggedIn) return true;
         return false; 
       } else if (isLoggedIn) {
-        const baseUrl = process.env.NEXTAUTH_URL || nextUrl.origin; // Ensure we have a base URL
-        const dashboardUrl = new URL('/dashboard', baseUrl); // Use the base URL or origin
-        return NextResponse.redirect(dashboardUrl); 
+        return NextResponse.redirect(new URL('/dashboard', nextUrl));
       }
       return true;
     },

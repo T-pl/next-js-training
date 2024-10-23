@@ -1,4 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
+import { NextResponse } from 'next/server';
  
 export const authConfig = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -13,7 +14,9 @@ export const authConfig = {
         if (isLoggedIn) return true;
         return false; 
       } else if (isLoggedIn) {
-        return Response.redirect(new URL('/dashboard', nextUrl.origin));
+        const baseUrl = process.env.NEXTAUTH_URL || nextUrl.origin; // Ensure we have a base URL
+        const dashboardUrl = new URL('/dashboard', baseUrl); // Use the base URL or origin
+        return NextResponse.redirect(dashboardUrl); 
       }
       return true;
     },
